@@ -1,31 +1,22 @@
 <?php
 class database
 {
-    // declaration of variables
     private $host = "localhost";
     private $user = "root";
     private $pass = "";
-    private $dbname = "edmb";
-    public static $con = null;
-    private $status = false;
+    private $dbname = "edm";
 
-    function __construct()
-    {
-        $this->initDatabase();
-    }
-    public function getStatus(){
-        return $this->status;
-    }
-
-    private function initDatabase(){
+    public function initDatabase(){
         try {
-            $con = new PDO("mysql:host=$this->host;dbname=".$this->dbname,
-             $this->user, $this->pass);
+            $con = new PDO("mysql:host=$this->host;dbname=".$this->dbname, 
+            $this->user, 
+            $this->pass);
+            // set the PDO error mode to exception
             $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->status = true;
-            echo "success";
+            return $con;
         } catch (PDOException $th) {
             echo $th;
+            return null;
         }
     }
 }
